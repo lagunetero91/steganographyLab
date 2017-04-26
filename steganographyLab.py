@@ -43,15 +43,15 @@ class userInterfaze:
         outputimage = Image.open("Imagenes/result.jpg")			#Abrir Imagen por defecto de la salida.
         outputimage.thumbnail(self.size, Image.ANTIALIAS)		#Cambia el tamaño de la imagen
         self.tkimageout = ImageTk.PhotoImage(outputimage)
-        outMiniaturePanel = tkinter.Label(self.window, image=self.tkimageout,width=256,height=256)
-        outMiniaturePanel.grid(row=0,column=2)
+        self.outMiniaturePanel = tkinter.Label(self.window, image=self.tkimageout,width=256,height=256)
+        self.outMiniaturePanel.grid(row=0,column=2)
 
         chooseButton = tkinter.Button(self.window,text="Selecionar Imagen",command=self.chooseImage).grid(row=1,column=0,pady=8)      #Botón de carga de imágenes
         saveButton = tkinter.Button(self.window,text="Guadar Imagen",command=self.saveImage).grid(row=1,column=2)                     #Botón para guardar imágenes
 
         Label(self.window,text="Esteganografía: ").grid(row=2,column=0)
         filterMenu = OptionMenu(self.window,tkvar,*self.filters).grid(row=2,column=1)                                                 #ComboBox
-        filerButton = tkinter.Button(self.window,text="Aplicar").grid(row=2,column=2,pady= 20)         #Botón que aplica el filtro seleccionado por el ComboBox
+        filerButton = tkinter.Button(self.window,text="Aplicar",command=self.aplySteganography).grid(row=2,column=2,pady= 20)         #Botón que aplica el filtro seleccionado por el ComboBox
 
         chooseTextButton = tkinter.Button(self.window,text="Fichero con Texto",command=self.chooseText).grid(row=3,column=0)
         self.filepatch= Entry(self.window,width=30)
@@ -65,9 +65,10 @@ class userInterfaze:
     def chooseImage(self):
         global actlmage
         filename =tkinter.filedialog.askopenfilename()
-        inImage2 = Image.open(filename)				#Abrir Imagen
-        actlmage = copy(inImage2)
-        self.refreshImages(inImage2,self.inMiniaturePanel)
+        if filename:
+            inImage2 = Image.open(filename)				#Abrir Imagen
+            actlmage = copy(inImage2)
+            self.refreshImages(inImage2,self.inMiniaturePanel)
    
     #Método encargado de guardar la imagen procesada.
     def saveImage(self):
@@ -77,13 +78,14 @@ class userInterfaze:
             outImage.save(savefile)
 
     #Método encargado de aplicar los filtros.
-    def aplyFilter():
+    def aplySteganography(self):
         global actlmage
         global outImage
         auxiliarImg = copy(actlmage)
        #NOW HERE STEGANOGRAPHI METHOD
+        showIm = auxiliarImg
         outImage=copy(showIm)
-        self.refreshImages(showIm,outMiniaturePanel)
+        self.refreshImages(showIm,self.outMiniaturePanel)
 
     #Método que refresca miniaturas.   
     def refreshImages(self,newMiniatureImage,panel):
@@ -94,8 +96,9 @@ class userInterfaze:
 
     def chooseText(self):
         filename =tkinter.filedialog.askopenfilename()
-        self.filepatch.insert(10,filename)
-        file = open(filename,'r')
+        if filename:
+            self.filepatch.insert(10,filename)
+            file = open(filename,'r')
         
 root = tkinter.Tk()            
 ui = userInterfaze(root)

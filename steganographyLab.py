@@ -116,16 +116,16 @@ class userInterfaze:
         maxLetters = width*height*3
         message = fText.read()
         print(message)
-        a = "Hola que hace"
-        binMessage = binascii.a2b_uu(a)
-        if maxLetters < message.length:
+        binMessage = bin(int.from_bytes(message.encode(),'big'))
+        print(binMessage)
+        if maxLetters < len(message):
             return 0
 		
 	#for i in range(width):
 	#	for j in range(height):
 	#		r,g,b = image.getpixel((i,j))
 			
-        return newImage
+        return image
         
 root = tkinter.Tk()            
 ui = userInterfaze(root)

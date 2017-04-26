@@ -12,10 +12,10 @@ from PIL import Image, ImageTk,ImageFilter,ImageOps
 
 
 class userInterfaze:
-    window_size= "800x400"      #Tamaño de la ventana del programa.
+    window_size= "800x600"      #Tamaño de la ventana del programa.
     size = 256, 256             #Tamaño de las miniaturas de las imágenes.
     color = "grey"
-    filters = {'Ocultar en Bit menos sig'}      #ComboBox: Métodos de esteganografía
+    filters = {'Bit menos significativo'}      #ComboBox: Métodos de esteganografía
     acImage = ''
     outImage = ''
     def __init__(self, master):
@@ -26,7 +26,7 @@ class userInterfaze:
 
         
         tkvar = StringVar(root)
-        tkvar.set('Ocultar en Bit menos sig')
+        tkvar.set('Bit menos significativo')
         master.geometry(self.window_size)
         master. resizable(width=False, height=False)
         self.window = tkinter.Frame(master)
@@ -49,10 +49,14 @@ class userInterfaze:
         chooseButton = tkinter.Button(self.window,text="Selecionar Imagen",command=self.chooseImage).grid(row=1,column=0,pady=8)      #Botón de carga de imágenes
         saveButton = tkinter.Button(self.window,text="Guadar Imagen",command=self.saveImage).grid(row=1,column=2)                     #Botón para guardar imágenes
 
-        Label(self.window,text="Seleccione filtro: ").grid(row=2,column=0)
+        Label(self.window,text="Esteganografía: ").grid(row=2,column=0)
         filterMenu = OptionMenu(self.window,tkvar,*self.filters).grid(row=2,column=1)                                                 #ComboBox
-        filerButton = tkinter.Button(self.window,text="Aplicar Filtro").grid(row=2,column=2,pady= 30)         #Botón que aplica el filtro seleccionado por el ComboBox
-            
+        filerButton = tkinter.Button(self.window,text="Aplicar").grid(row=2,column=2,pady= 30)         #Botón que aplica el filtro seleccionado por el ComboBox
+
+        textIn = Text(height=5)
+        textIn.insert(END,"Introduzca el texto a aplicar a la Esteganografía ...")
+        textIn.pack()
+        
     # Método que se utiliza para cargar una imagen al programa.
     def chooseImage(self):
         global actlmage

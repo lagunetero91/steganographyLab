@@ -12,7 +12,7 @@ from PIL import Image, ImageTk,ImageFilter,ImageOps
 
 
 class userInterfaze:
-    window_size= "640x480"      #Tamaño de la ventana del programa.
+    window_size= "800x400"      #Tamaño de la ventana del programa.
     size = 256, 256             #Tamaño de las miniaturas de las imágenes.
     color = "grey"
     filters = {'Ocultar en Bit menos sig'}      #ComboBox: Métodos de esteganografía
@@ -28,6 +28,7 @@ class userInterfaze:
         tkvar = StringVar(root)
         tkvar.set('Ocultar en Bit menos sig')
         master.geometry(self.window_size)
+        master. resizable(width=False, height=False)
         self.window = tkinter.Frame(master)
         self.window.pack()
         

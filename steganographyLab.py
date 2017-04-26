@@ -118,32 +118,38 @@ class userInterfaze:
         print(message)
         binMessage = bin(int.from_bytes(message.encode(),'big'))
         print(binMessage)
-        if maxLetters < len(message):
+        if maxLetters < len(binMessage):
             return 0
         charNum = 0
         for i in range(width):
             for j in range(height):
                 r,g,b = image.getpixel((i,j))
                 if (r % 2 == 1) and (binMessage[charNum]==0):
-                    r-1
+                    print(charNum)
+                    r=r-1
                 elif (r % 2 == 0) and (binMessage[charNum]==1):
-                    r+1
-                charNum+1
-                if charNum>len(message):
+                    r=r+1
+                    print(charNum)
+                charNum=charNum+1
+                if charNum>=len(binMessage):
                    return image
                 if (g % 2 == 1) and (binMessage[charNum]==0):
-                    g-1
+                    g=g-1
+                    print(charNum)
                 elif (g % 2 == 0) and (binMessage[charNum]==1):
-                    g+1
-                charNum+1
-                if charNum>len(message):
+                    g=g+1
+                    print(charNum)
+                charNum=charNum+1
+                if charNum>=len(binMessage):
                    return image
                 if (b % 2 == 1) and (binMessage[charNum]==0):
-                    b-1
+                    b=b-1
+                    print(charNum)
                 elif (b % 2 == 0) and (binMessage[charNum]==1):
-                    b+1
-                charNum+1
-                if charNum>len(message):
+                    b=b+1
+                    print(charNum)
+                charNum=charNum+1
+                if charNum>=len(binMessage):
                    return image
                 image.putpixel((i,j),(r,g,b))
 			

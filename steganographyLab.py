@@ -2,14 +2,13 @@
 
 import os, sys
 from tkinter import*
+from tkinter import messagebox
 import tkinter.filedialog
 import tkinter.colorchooser
 import math
 from copy import copy
 from PIL import Image, ImageTk,ImageFilter,ImageOps
-      
-
-
+import binascii
 
 class userInterfaze:
     window_size= "800x600"      #Tamaño de la ventana del programa.
@@ -18,6 +17,7 @@ class userInterfaze:
     filters = {'Bit menos significativo'}      #ComboBox: Métodos de esteganografía
     acImage = ''
     outImage = ''
+    file = 0
     def __init__(self, master):
         global actlmage
         global outImage
@@ -66,16 +66,23 @@ class userInterfaze:
         global actlmage
         filename =tkinter.filedialog.askopenfilename()
         if filename:
-            inImage2 = Image.open(filename)				#Abrir Imagen
-            actlmage = copy(inImage2)
-            self.refreshImages(inImage2,self.inMiniaturePanel)
-   
+            try:
+                inImage2 = Image.open(filename)				#Abrir Imagen
+                actlmage = copy(inImage2)
+                self.refreshImages(inImage2,self.inMiniaturePanel)
+            except:
+                tkinter.messagebox.showerror("Error","Fallo al abrir el archivo.")
+                
     #Método encargado de guardar la imagen procesada.
     def saveImage(self):
         global outImage
         savefile = tkinter.filedialog.asksaveasfile(mode='w',defaultextension=".jpg")
         if savefile:    #Comprueba si se le dío a cancelar.
-            outImage.save(savefile)
+            try:
+                outImage.save(savefile)
+            except:
+                messagebox.showerror("Error","Fallo al abrir el archivo")
+
 
     #Método encargado de aplicar los filtros.
     def aplySteganography(self):
@@ -83,6 +90,7 @@ class userInterfaze:
         global outImage
         auxiliarImg = copy(actlmage)
        #NOW HERE STEGANOGRAPHI METHOD
+        self.lessBit(actlmage,self.file)
         showIm = auxiliarImg
         outImage=copy(showIm)
         self.refreshImages(showIm,self.outMiniaturePanel)
@@ -97,8 +105,27 @@ class userInterfaze:
     def chooseText(self):
         filename =tkinter.filedialog.askopenfilename()
         if filename:
-            self.filepatch.insert(10,filename)
-            file = open(filename,'r')
+            try:
+                self.filepatch.insert(10,filename)
+                self.file = open(filename,'r')
+            except:
+                messagebox.showerror("Error","Fallo al abrir el archivo")
+
+    def lessBit(self,image,fText):
+        width,height = image.size
+        maxLetters = width*height*3
+        message = fText.read()
+        print(message)
+        a = "Hola que hace"
+        binMessage = binascii.a2b_uu(a)
+        if maxLetters < message.length:
+            return 0
+		
+	#for i in range(width):
+	#	for j in range(height):
+	#		r,g,b = image.getpixel((i,j))
+			
+        return newImage
         
 root = tkinter.Tk()            
 ui = userInterfaze(root)

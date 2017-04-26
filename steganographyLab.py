@@ -120,10 +120,32 @@ class userInterfaze:
         print(binMessage)
         if maxLetters < len(message):
             return 0
-		
-	#for i in range(width):
-	#	for j in range(height):
-	#		r,g,b = image.getpixel((i,j))
+        charNum = 0
+        for i in range(width):
+            for j in range(height):
+                r,g,b = image.getpixel((i,j))
+                if (r % 2 == 1) and (binMessage[charNum]==0):
+                    r-1
+                elif (r % 2 == 0) and (binMessage[charNum]==1):
+                    r+1
+                charNum+1
+                if charNum>len(message):
+                   return image
+                if (g % 2 == 1) and (binMessage[charNum]==0):
+                    g-1
+                elif (g % 2 == 0) and (binMessage[charNum]==1):
+                    g+1
+                charNum+1
+                if charNum>len(message):
+                   return image
+                if (b % 2 == 1) and (binMessage[charNum]==0):
+                    b-1
+                elif (b % 2 == 0) and (binMessage[charNum]==1):
+                    b+1
+                charNum+1
+                if charNum>len(message):
+                   return image
+                image.putpixel((i,j),(r,g,b))
 			
         return image
         

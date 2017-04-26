@@ -51,8 +51,12 @@ class userInterfaze:
 
         Label(self.window,text="Esteganografía: ").grid(row=2,column=0)
         filterMenu = OptionMenu(self.window,tkvar,*self.filters).grid(row=2,column=1)                                                 #ComboBox
-        filerButton = tkinter.Button(self.window,text="Aplicar").grid(row=2,column=2,pady= 30)         #Botón que aplica el filtro seleccionado por el ComboBox
+        filerButton = tkinter.Button(self.window,text="Aplicar").grid(row=2,column=2,pady= 20)         #Botón que aplica el filtro seleccionado por el ComboBox
 
+        chooseTextButton = tkinter.Button(self.window,text="Fichero con Texto",command=self.chooseText).grid(row=3,column=0)
+        self.filepatch= Entry(self.window,width=30)
+        self.filepatch.grid(row=3,column=1,pady=30)
+        
         textIn = Text(height=5)
         textIn.insert(END,"Introduzca el texto a aplicar a la Esteganografía ...")
         textIn.pack()
@@ -87,7 +91,12 @@ class userInterfaze:
         tkimageout = ImageTk.PhotoImage(newMiniatureImage)			#Mostrar imagen
         panel.configure(image = tkimageout)
         panel.image = tkimageout
-    
+
+    def chooseText(self):
+        filename =tkinter.filedialog.askopenfilename()
+        self.filepatch.insert(10,filename)
+        file = open(filename,'r')
+        
 root = tkinter.Tk()            
 ui = userInterfaze(root)
 root.mainloop()

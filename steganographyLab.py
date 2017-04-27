@@ -90,8 +90,8 @@ class userInterfaze:
         global outImage
         auxiliarImg = copy(actlmage)
        #NOW HERE STEGANOGRAPHI METHOD
-        self.lessBit(actlmage,self.file)
-        showIm = auxiliarImg
+        
+        showIm = self.lessBit(auxiliarImg,self.file)
         outImage=copy(showIm)
         self.refreshImages(showIm,self.outMiniaturePanel)
 
@@ -124,30 +124,27 @@ class userInterfaze:
         for i in range(width):
             for j in range(height):
                 r,g,b = image.getpixel((i,j))
-                if (r % 2 == 1) and (binMessage[charNum]==0):
-                    print(charNum)
+                if (r % 2 == 1) and (binMessage[charNum]=='0'):
                     r=r-1
-                elif (r % 2 == 0) and (binMessage[charNum]==1):
+                elif (r % 2 == 0) and (binMessage[charNum]=='1'):
                     r=r+1
-                    print(charNum)
+                    
                 charNum=charNum+1
                 if charNum>=len(binMessage):
                    return image
-                if (g % 2 == 1) and (binMessage[charNum]==0):
+                if (g % 2 == 1) and (binMessage[charNum]=='0'):
                     g=g-1
-                    print(charNum)
-                elif (g % 2 == 0) and (binMessage[charNum]==1):
+                elif (g % 2 == 0) and (binMessage[charNum]=='1'):
                     g=g+1
-                    print(charNum)
+
                 charNum=charNum+1
                 if charNum>=len(binMessage):
                    return image
-                if (b % 2 == 1) and (binMessage[charNum]==0):
+                if (b % 2 == 1) and (binMessage[charNum]=='0'):
                     b=b-1
-                    print(charNum)
-                elif (b % 2 == 0) and (binMessage[charNum]==1):
+                elif (b % 2 == 0) and (binMessage[charNum]=='1'):
                     b=b+1
-                    print(charNum)
+
                 charNum=charNum+1
                 if charNum>=len(binMessage):
                    return image

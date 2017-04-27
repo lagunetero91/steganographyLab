@@ -113,17 +113,19 @@ class userInterfaze:
 
     def lessBit(self,image,fText):
         width,height = image.size
-        maxLetters = width*height*3
-        message = fText.read()
-        print(message)
-        binMessage = bin(int.from_bytes(message.encode(),'big'))
-        print(binMessage)
+        maxLetters = width*height*3         # Número máximo de letras que pueden ser introducidas en la imagen.
+        message = fText.read()          
+        binMessage = bin(int.from_bytes(message.encode(),'big'))    #Se convierte el texto en una rista de bits (convertir ASCII a BIN)
         if maxLetters < len(binMessage):
             return 0
         charNum = 0
         for i in range(width):
             for j in range(height):
                 r,g,b = image.getpixel((i,j))
+                print("Viejo")
+                print(r)
+                print(g)
+                print(b)
                 if (r % 2 == 1) and (binMessage[charNum]=='0'):
                     r=r-1
                 elif (r % 2 == 0) and (binMessage[charNum]=='1'):
@@ -148,7 +150,11 @@ class userInterfaze:
                 charNum=charNum+1
                 if charNum>=len(binMessage):
                    return image
-                image.putpixel((i,j),(r,g,b))
+                print("Nuevo")
+                print(r)
+                print(g)
+                print(b)
+                image.putpixel((i,j),(r,g,b))       #Colocamos el nuevo pixel modificado.
 			
         return image
         
